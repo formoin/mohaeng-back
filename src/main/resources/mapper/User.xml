@@ -4,13 +4,45 @@
 
 <mapper namespace="com.ssafy.user.model.mapper.UserMapper">
 	<!-- 검색 -->
-	<select id="login" parameterType="user" resultType="user">
-		select id, user_id, user_name, user_phone
+	<resultMap type="user" id="user">
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_password" property="userPwd"/>
+		<result column="user_phone" property="phone"/>
+		<result column="token" property="refreshToken"/>
+	</resultMap>
+	
+	<select id="login" parameterType="map" resultMap="user">
+		select id, user_id, user_name, token
 		from user
-		where user_id=#{id} and user_password=#{password}
+		where user_id=#{userId} and user_password=#{userPwd}
 	</select>
-
-	<select id="selectAll" resultType="user">
+	
+	<select id="userInfo" parameterType="string" resultMap="user">
+		select user_name, user_id, user_phone
+		from user
+		where user_id = #{userId}
+	</select>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update user
+		set token = #{token}
+		where user_id = #{userId}
+	</update>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from user
+		where user_id = #{userId}
+	</select>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update user
+		set token = #{token, jdbcType=VARCHAR}
+		where user_id = #{userId}
+	</update>
+	
+	<select id="selectAll" resultMap="user">
 		select id, user_id, user_name, user_phone
 		from user
 	</select>
