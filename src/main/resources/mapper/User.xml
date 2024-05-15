@@ -8,42 +8,29 @@
 		<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
 		<result column="user_password" property="userPwd"/>
-		<result column="user_phone" property="phone"/>
-		<result column="token" property="refreshToken"/>
+		<result column="user_phone" property="userPhone"/>
+		<result column="birthday" property="birthday"/>
+		<result column="message" property="message"/>
+		<result column="img" property="img"/>
 	</resultMap>
-	
-	<select id="login" parameterType="map" resultMap="user">
-		select id, user_id, user_name, token
+
+	<insert id="join" parameterType="user">
+		insert into user
+			(user_id, user_password, user_name, user_phone, birthday, message, img)
+		values
+			(#{userId}, #{userPwd}, #{userName}, #{userPhone}, #{birthday}, #{message}, #{img})
+	</insert>
+
+	<select id="findById" parameterType="string" resultMap="user">
+		select user_id, user_password,  user_name, user_phone, birthday, message, img
 		from user
-		where user_id=#{userId} and user_password=#{userPwd}
+		where user_id=#{userId}
 	</select>
 	
-	<select id="userInfo" parameterType="string" resultMap="user">
-		select user_name, user_id, user_phone
-		from user
-		where user_id = #{userId}
-	</select>
-	
-	<update id="saveRefreshToken" parameterType="map">
-		update user
-		set token = #{token}
-		where user_id = #{userId}
-	</update>
-	
-	<select id="getRefreshToken" parameterType="string" resultType="string">
-		select token
-		from user
-		where user_id = #{userId}
-	</select>
-	
-	<update id="deleteRefreshToken" parameterType="map">
-		update user
-		set token = #{token, jdbcType=VARCHAR}
-		where user_id = #{userId}
-	</update>
+
 	
 	<select id="selectAll" resultMap="user">
-		select id, user_id, user_name, user_phone
+		select id, user_id, user_name
 		from user
 	</select>
 </mapper>
