@@ -20,7 +20,7 @@ public class JWTUtil {
 	@Value("${jwt.secret-key}")
 	private String secretKeyPlain;
 
-	private final long EXPIRATION_SECONDS = 60 * 60;	//1시간
+	private final long EXPIRATION_SECONDS = 60 * 60 * 60;	//1시간
 
 	//application.properties에 등록된 변수
 	public SecretKey getSecretKey() {
@@ -59,7 +59,7 @@ public class JWTUtil {
 				.parseSignedClaims(token)
 				.getPayload();
 
-		String id = (String) claims.get("id");
+		String id = (String) claims.get("userId");
 		log.debug("claim id:{}",id);
 		return id;
 	}

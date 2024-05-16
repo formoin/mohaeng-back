@@ -6,11 +6,13 @@ import java.util.List;
 import com.ssafy.user.dto.User;
 
 public interface UserMapper {
-//	User login(User loginInfo) throws SQLException;
 	List<User> selectAll() throws SQLException;
 
-	int join(User joinInfo);
+	int join(User joinInfo) throws SQLException;
 
-	User findById(String id);
+	User findById(String id) throws SQLException;
 
+	int update(User userInfo) throws SQLException;
+	
+	
 }

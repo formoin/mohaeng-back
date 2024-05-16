@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
+
+
+	<select id="getAttrList" resultType="attraction">
+		select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
+		from attraction_info
+	</select>
+	
+	<select id="getAttrInfo" parameterType="int" resultType="attraction">
+		select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
+		from attraction_info
+		where content_id=#{contentId}
+	</select>
+</mapper>

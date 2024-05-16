@@ -1,5 +1,6 @@
 package com.ssafy.user.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.util.JWTUtil;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public String join(User joinInfo) {
+	public String join(User joinInfo) throws Exception {
 		//비밀번호 암호화
 		String encodedPassword = passwordEncoder.encode(joinInfo.getUserPwd());
 		joinInfo.setUserPwd(encodedPassword);
@@ -49,6 +50,22 @@ public class UserServiceImpl implements UserSerivce {
 		//토큰 만들어서 반환
 		return jwtUtil.generateToken(joinInfo);
 	}
+
+	@Override
+	public int update(User userInfo) throws Exception {
+		
+		return userMapper.update(userInfo);
+	}
+	
+	@Override
+	public User userInfo(String token) throws Exception {
+		
+		String userId = jwtUtil.getIdFromToken(token);
+		return userMapper.findById(userId);
+
+	}
+	
+	
 
 
 

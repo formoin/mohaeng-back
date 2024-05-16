@@ -20,17 +20,25 @@ public class WebConfig implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry) {
         registry
                 .addInterceptor(authInterceptor)
-                .addPathPatterns("/users/**");
+                .addPathPatterns("/**/**")
+                .excludePathPatterns("/users/login", "/users/join");
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/users/**")
+//                .allowedOrigins("http://localhost:5173", "http://172.30.1.39:5173")
+//                .allowedMethods("POST");
+//        registry.addMapping("/boards/**")
+//                .allowedOrigins("http://localhost:5173", "http://172.30.1.39:5173")
+//                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
+        
         registry.addMapping("/users/**")
-                .allowedOrigins("http://localhost:5173", "http://172.30.1.39:5173")
-                .allowedMethods("POST");
+        .allowedOrigins("http://localhost:5173", "http://192.168.206.62:5173")
+        .allowedMethods("POST");
         registry.addMapping("/boards/**")
-                .allowedOrigins("http://localhost:5173", "http://172.30.1.39:5173")
-                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
+        .allowedOrigins("http://localhost:5173", "http://192.168.206.62:5173")
+        .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
     }
 
 }

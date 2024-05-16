@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
+
+
+	<select id="getMyGroup" parameterType="int" resultType="group">
+		select group_id, group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt
+		from group g inner join usergroup u
+		on g.group_id = u.group_id
+		where u.id=#{id}
+	</select>
+	
+	<insert id="makeGroup" parameterType="group">
+		insert into group (group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt)
+		values (#{groupName}, #{groupTitle}, #{groupImg}, #{startDate}, #{endDate}, #{totalCnt}, #{todayCnt})
+	</insert>
+	
+	<insert id="makeUserGroup" parameterType="usergroup">
+		insert into usergroup (user_id, group_id)
+		values (#{userId}, #{groupId})
+		
+	</insert>
+	
+	<delete id="deleteGroup" parameterType="int">
+		delete from group
+		where group_id=#{groupId}
+	</delete>
+	
+	<select id="updateGroup" parameterType="group">
+		update group
+		set group_id=#{groupId}, group_name=#{groupName}, group_title=#{groupTitle}, group_img=#{groupImg}, start_date=#{startDate}, end_date=#{endDate}, total_cnt=#{totalCnt}, today_cnt=#{todayCnt}
+		where group_id=#{groupId}
+	</select>
+	
+</mapper>
