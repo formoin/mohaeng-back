@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.todo.model.mapper.TodoMapper">
+
+
+    <select id="getNoticeList" resultType="attraction">
+        select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
+        from attraction_info
+    </select>
+
+    <delete id="deleteNotice" parameterType="int">
+        delete from notice
+        where id=#{id}
+    </delete>
+
+    <insert id="createNotice" parameterType="notice">
+        insert into notice (group_id, content)
+        values (#{groupId}, #{content})
+    </insert>
+
+</mapper>
