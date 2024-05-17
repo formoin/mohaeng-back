@@ -27,11 +27,11 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserSerivce userService;
 
-	@GetMapping("/search")
-	public ResponseEntity<?> userList() throws Exception {
-		List<User> list = userService.selectAll();
-		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
-	}
+//	@GetMapping("/search")
+//	public ResponseEntity<?> userList() throws Exception {
+//		List<User> list = userService.sel();
+//		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+//	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User loginInfo) throws Exception {
@@ -83,6 +83,14 @@ public class UserController {
 		if(myInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 조회 실패");
 
 		return ResponseEntity.ok(myInfo);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<?> searchUserInfo(@RequestParam("keyword") String keyword) throws Exception{
+
+		List<User> userList = userService.selectByKeyword(keyword);
+
+		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 	}
 
 

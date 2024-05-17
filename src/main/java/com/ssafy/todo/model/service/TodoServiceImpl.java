@@ -18,7 +18,6 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int checkTodo(Todo todo) {
-        todo.setChecked(!todo.isChecked());
         return todoMapper.update(todo);
     }
 

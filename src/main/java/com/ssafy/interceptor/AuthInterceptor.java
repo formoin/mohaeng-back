@@ -25,6 +25,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 		
 		String tokenHeader = request.getHeader("Authorization");	//Header에서 토큰 정보 추출
 		//토큰 헤더가 없거나 Bearer로 시작하지 않는 경우
+		System.out.println(tokenHeader);
 		if(tokenHeader == null || !tokenHeader.startsWith("Bearer ")) {
 			response.setStatus(401);
 			response.getWriter().write("Unauthorized");

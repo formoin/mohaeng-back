@@ -33,12 +33,10 @@ public class WebConfig implements WebMvcConfigurer{
 //                .allowedOrigins("http://localhost:5173", "http://172.30.1.39:5173")
 //                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
         
-        registry.addMapping("/users/**")
-        .allowedOrigins("http://localhost:5173", "http://192.168.206.62:5173")
-        .allowedMethods("POST");
-        registry.addMapping("/boards/**")
-        .allowedOrigins("http://localhost:5173", "http://192.168.206.62:5173")
-        .allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
+    	  registry.addMapping("/*")
+          .allowedMethods("")
+          .exposedHeaders("Authorization")
+          .allowedOrigins("*");
     }
 
 }

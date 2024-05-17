@@ -9,5 +9,4 @@ public interface TodoMapper {
     int update(Todo todo);
     int delete(int todoId);
     int insert(Todo todo);
-
 }

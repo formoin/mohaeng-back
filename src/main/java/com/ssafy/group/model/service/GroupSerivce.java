@@ -4,10 +4,18 @@ import java.util.List;
 
 import com.ssafy.group.dto.Group;
 import com.ssafy.group.dto.RequestMakegroup;
+import com.ssafy.user.dto.Groupuser;
+import com.ssafy.user.dto.User;
 
 public interface GroupSerivce {
 	int makeGroup(RequestMakegroup requestInfo);
-	int updateGroup(RequestMakegroup updateInfo);
-	int deleteGroup(int group);
-	List<Group> getMyGroup(String userId);
+	int addGroupUsers(RequestMakegroup requestInfo);
+
+	int updateGroupInfo(Group group);
+	
+	int deleteGroup(int groupId);
+	
+	
+	List<Group> getMyGroup(int userId);
+	List<User> getGroupMember(int groupId);
 }

@@ -1,9 +1,12 @@
 package com.ssafy.user.dto;
 
-public class UserGroup {
+import lombok.Data;
+
+@Data
+public class Groupuser {
 
 	private int usergroupId;
-	private int userId;
+	private Integer userId;
 	private int groupId;
 	private boolean noticeCheck;
 	

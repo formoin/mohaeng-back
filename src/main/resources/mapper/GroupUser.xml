@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.group.model.mapper.GroupUserMapper">
+	<select id="getGroupUser" parameterType="int" resultType="user">
+		select
+		id, user_id, user_name, img
+		from user u inner join groupuser g
+		on
+		g.user_id = u.id
+		where g.group_id=#{groupId}
+	</select>
+
+	<insert id="insertGroupUserList" parameterType="list">
+		insert into groupuser
+		(user_id, group_id)
+		values 
+		<foreach collection="list" item="item" index="idx" separator=",">
+			(
+				#{item.userId},
+				#{item.groupId}
+			)
+		</foreach>
+
+	</insert>
+	
+	<insert id="insertGroupUser" parameterType="groupuser">
+		insert into groupuser (user_id, group_id)
+		values (#{userId}, #{groupId})
+	</insert>
+
+</mapper>

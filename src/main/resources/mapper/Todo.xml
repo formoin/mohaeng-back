@@ -5,19 +5,26 @@
 <mapper namespace="com.ssafy.todo.model.mapper.TodoMapper">
 
 
-    <select id="getNoticeList" resultType="attraction">
-        select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
-        from attraction_info
+    <select id="getTodoList" resultType="todo" parameterType="int">
+        select todo_id, content, isChecked
+        from todo
+        where group_id=#{groupId}
     </select>
 
-    <delete id="deleteNotice" parameterType="int">
-        delete from notice
-        where id=#{id}
+    <delete id="delete" parameterType="int">
+        delete from todo
+        where todo_id=#{todoId}
     </delete>
 
-    <insert id="createNotice" parameterType="notice">
-        insert into notice (group_id, content)
-        values (#{groupId}, #{content})
+    <insert id="insert" parameterType="todo">
+        insert into todo (content, group_id)
+        values (#{content}, #{groupId})
     </insert>
+    
+    <update id="update" parameterType="todo">
+    	update todo
+    	set isChecked=#{isChecked}
+    	where todo_id=#{todoId}
+    </update>
 
 </mapper>

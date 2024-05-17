@@ -6,7 +6,7 @@ import java.util.List;
 import com.ssafy.user.dto.User;
 
 public interface UserMapper {
-	List<User> selectAll() throws SQLException;
+	List<User> selectByKeyword(String keyword) throws SQLException;
 
 	int join(User joinInfo) throws SQLException;
 

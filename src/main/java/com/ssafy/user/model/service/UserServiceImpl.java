@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserSerivce {
 	}
 
 	@Override
-	public List<User> selectAll() throws Exception {
+	public List<User> selectByKeyword(String keyword) throws Exception {
 		
-		return userMapper.selectAll();
+		return userMapper.selectByKeyword(keyword);
 	}
 
 	@Override
