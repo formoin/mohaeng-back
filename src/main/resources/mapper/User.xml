@@ -39,4 +39,9 @@
 		from user
 		where user_id like CONCAT('%',#{keyword},'%') or user_name like CONCAT('%',#{keyword},'%')
 	</select>
+
+	<delete id="deleteById" parameterType="int">
+		delete from user
+		where id=#{userId}
+	</delete>
 </mapper>

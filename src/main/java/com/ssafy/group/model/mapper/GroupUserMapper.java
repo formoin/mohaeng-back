@@ -7,7 +7,9 @@ import com.ssafy.user.dto.Groupuser;
 import com.ssafy.user.dto.User;
 
 public interface GroupUserMapper {
-	List<User> getGroupUser(int groupId);
-	int insertGroupUserList(List<Groupuser> groupUser);
+	List<User> getGroupUsers(int groupId);
+	int insertGroupUserList(List<Groupuser> groupuserList);
+
+	int deleteGroupUsers(Groupuser groupuser);
 
 }

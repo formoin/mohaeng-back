@@ -3,9 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.group.model.mapper.GroupUserMapper">
-	<select id="getGroupUser" parameterType="int" resultType="user">
+	<select id="getGroupUsers" parameterType="int" resultType="user">
 		select
-		id, user_id, user_name, img
+		u.id, u.user_id, u.user_name, u.img
 		from user u inner join groupuser g
 		on
 		g.user_id = u.id
@@ -25,9 +25,9 @@
 
 	</insert>
 	
-	<insert id="insertGroupUser" parameterType="groupuser">
-		insert into groupuser (user_id, group_id)
-		values (#{userId}, #{groupId})
+	<insert id="deleteGroupUsers" parameterType="groupuser">
+		delete from groupuser
+		where user_id=#{userId} and group_id=#{groupId}
 	</insert>
 
 </mapper>

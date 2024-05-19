@@ -4,12 +4,17 @@
 
 <mapper namespace="com.ssafy.group.model.mapper.GroupMapper">
 
+	<select id="getGroupInfo" parameterType="int" resultType="group">
+		select group_id, group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt
+		from `group`
+		where group_id=#{groupId}
+	</select>
 
 	<select id="getMyGroup" parameterType="int" resultType="group">
-		select group_id, group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt
+		select g.group_id, g.group_name, g.group_title, g.group_img, g.start_date, g.end_date, g.total_cnt, g.today_cnt
 		from `group` g inner join groupuser u
 		on g.group_id = u.group_id
-		where u.id=#{id}
+		where u.user_id=#{user_id}
 	</select>
 	
 	<insert id="makeGroup" parameterType="group">
@@ -20,18 +25,17 @@
 			SELECT LAST_INSERT_ID()	
 		</selectKey>
 	</insert>
-	
 
 	
+	<update id="updateGroup" parameterType="Group">
+		update `group`
+		set group_name=#{groupName}, group_title=#{groupTitle}, group_img=#{groupImg}, start_date=#{startDate}, end_date=#{endDate}, total_cnt=#{totalCnt}, today_cnt=#{todayCnt}
+		where group_id=#{groupId}
+	</update>
+
 	<delete id="deleteGroup" parameterType="int">
 		delete from `group`
 		where group_id=#{groupId}
 	</delete>
-	
-	<select id="updateGroup" resultType="group" parameterType="int">
-		update `group`
-		set group_id=#{groupId}, group_name=#{groupName}, group_title=#{groupTitle}, group_img=#{groupImg}, start_date=#{startDate}, end_date=#{endDate}, total_cnt=#{totalCnt}, today_cnt=#{todayCnt}
-		where group_id=#{groupId}
-	</select>
 	
 </mapper>

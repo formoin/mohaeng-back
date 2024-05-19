@@ -64,10 +64,11 @@ public class UserServiceImpl implements UserSerivce {
 		return userMapper.findById(userId);
 
 	}
-	
-	
 
-
+	@Override
+	public int deleteUserInfo(int userId) throws Exception {
+		return userMapper.deleteById(userId);
+	}
 
 
 }

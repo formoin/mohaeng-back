@@ -10,4 +10,6 @@ public interface UserSerivce {
 	String join(User joinInfo) throws Exception;
 	int update(User joinInfo) throws Exception;
 	User userInfo(String token) throws Exception;
+
+	int deleteUserInfo(int userId) throws Exception;
 }

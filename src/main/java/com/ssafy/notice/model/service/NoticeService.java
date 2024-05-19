@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface NoticeService {
     List<Notice> getNoticeList(int groupId);
-    int deleteNotice(int id);
+    int deleteNotice(int noticeId);
     int createNotice(Notice notice);
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.memory.model.mapper.MemoryMapper">
+
+
+    <select id="getDiary" resultType="memory" parameterType="int">
+        select memory_id, img, content, write_time, group_id, user_id
+        from memory
+        where group_id=#{groupId}
+        order by write_time
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from memory
+        where memory_id=#{memoryId}
+    </delete>
+
+    <insert id="insert" parameterType="memory">
+        insert into memory (img, content, group_id, user_id)
+        values (#{img}, #{content}, #{groupId}, #{userId})
+    </insert>
+
+    <update id="update" parameterType="memory">
+        update memory
+        set img=#{img}, content=#{content}
+        where memory_id=#{memoryId}
+    </update>
+
+</mapper>

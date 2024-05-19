@@ -22,6 +22,11 @@ public class GroupServiceImpl implements GroupSerivce {
 	private final GroupUserMapper groupUserMapper;
 
 	@Override
+	public Group getGroupInfo(int groupId) {
+		return groupMapper.getGroupInfo(groupId);
+	}
+
+	@Override
 	public int makeGroup(RequestMakegroup requestInfo) {
 		Group groupInfo = requestInfo.getGroupInfo();
 		if(groupMapper.makeGroup(groupInfo) !=1) {
@@ -45,7 +50,22 @@ public class GroupServiceImpl implements GroupSerivce {
 		
 		return 1;
 	}
-	
+
+
+	@Override
+	public int updateGroupInfo(Group group) {
+		
+		return groupMapper.updateGroup(group);
+	}
+
+	@Override
+	public int deleteGroup(int groupId) {
+		return groupMapper.deleteGroup(groupId);
+	}
+	@Override
+	public List<User> getGroupUsers(int groupId) {
+		return groupUserMapper.getGroupUsers(groupId);
+	}
 	@Override
 	public int addGroupUsers(RequestMakegroup groupuser) {
 		int groupId = groupuser.getGroupInfo().getGroupId();
@@ -57,20 +77,16 @@ public class GroupServiceImpl implements GroupSerivce {
 			temp.setUserId(userId);
 			groupuserList.add(temp);
 		}
-		
+
 		return groupUserMapper.insertGroupUserList(groupuserList);
 	}
 
-
 	@Override
-	public int updateGroupInfo(Group group) {
-		
-		return 0;
-	}
-
-	@Override
-	public int deleteGroup(int groupId) {
-		return groupMapper.deleteGroup(groupId);
+	public int deleteGroupUsers(int groupId, int userId) {
+		Groupuser groupuser = new Groupuser();
+		groupuser.setGroupId(groupId);
+		groupuser.setUserId(userId);
+		return groupUserMapper.deleteGroupUsers(groupuser);
 	}
 
 
@@ -78,12 +94,5 @@ public class GroupServiceImpl implements GroupSerivce {
 	public List<Group> getMyGroup(int userId) {
 		return groupMapper.getMyGroup(userId);
 	}
-
-
-	@Override
-	public List<User> getGroupMember(int groupId) {
-		return groupUserMapper.getGroupUser(groupId);
-	}
-
 	
 }

@@ -9,13 +9,14 @@ import com.ssafy.user.dto.User;
 
 public interface GroupSerivce {
 	int makeGroup(RequestMakegroup requestInfo);
-	int addGroupUsers(RequestMakegroup requestInfo);
+	Group getGroupInfo(int groupId);
 
 	int updateGroupInfo(Group group);
 	
 	int deleteGroup(int groupId);
-	
-	
+	List<User> getGroupUsers(int groupId);
+	int addGroupUsers(RequestMakegroup requestInfo);
 	List<Group> getMyGroup(int userId);
-	List<User> getGroupMember(int groupId);
+	int deleteGroupUsers(int groupId, int userId);
+
 }

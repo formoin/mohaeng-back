@@ -4,15 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.user.dto.User;
 import com.ssafy.user.model.service.UserSerivce;
@@ -27,11 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserSerivce userService;
 
-//	@GetMapping("/search")
-//	public ResponseEntity<?> userList() throws Exception {
-//		List<User> list = userService.sel();
-//		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
-//	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User loginInfo) throws Exception {
@@ -52,7 +39,7 @@ public class UserController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestBody User updateInfo, @RequestHeader("Authorization") String tokenHeader ) throws Exception{
+	public ResponseEntity<?> update(@RequestBody User updateInfo, @RequestHeader("Authorization") String tokenHeader) throws Exception{
 		
 		//1. 토큰을 사용해 유저정보 조회
 		User myInfo = userService.userInfo(tokenHeader.substring(7));	
@@ -66,15 +53,7 @@ public class UserController {
 
 		return ResponseEntity.ok(cnt);
 	}
-	
-//	@GetMapping("/mypage")
-//	public ResponseEntity<?> myPage(@RequestHeader("Authorization") String tokenHeader) throws Exception{
-//		
-//		User myInfo = userService.myPage(tokenHeader.substring(7));	
-//		if(myInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 조회 실패");
-//
-//		return ResponseEntity.ok(myInfo);
-//	}
+
 
 	@GetMapping("/userInfo")
 	public ResponseEntity<?> userInfo(@RequestHeader("Authorization") String tokenHeader) throws Exception{
@@ -91,6 +70,16 @@ public class UserController {
 		List<User> userList = userService.selectByKeyword(keyword);
 
 		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	}
+
+	@DeleteMapping
+	public ResponseEntity<?> deleteUserInfo(@RequestParam("id") int userId) throws Exception{
+		System.out.println("!!!");
+		int cnt = userService.deleteUserInfo(userId);
+
+		if(cnt == 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유저 삭제 실패");
+
+		return ResponseEntity.ok(cnt);
 	}
 
 

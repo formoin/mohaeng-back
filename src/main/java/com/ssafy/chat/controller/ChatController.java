@@ -1,7 +1,7 @@
-package com.ssafy.notice.controller;
+package com.ssafy.chat.controller;
 
-import com.ssafy.notice.dto.Notice;
-import com.ssafy.notice.model.service.NoticeService;
+import com.ssafy.chat.dto.Chat;
+import com.ssafy.chat.model.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,31 +10,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notices")
 @RequiredArgsConstructor
+@RequestMapping("/chat")
 @CrossOrigin("*")
-public class NoticeController {
-    private final NoticeService noticeService;
+public class ChatController {
+    private final ChatService chatService;
 
     @GetMapping
     public ResponseEntity<?> noticeList(@RequestParam int groupId) throws Exception {
-        List<Notice> list = noticeService.getNoticeList(groupId);
+        List<Chat> list = chatService.getChatting(groupId);
 
         if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("공지 가져오기 실패");
-        return new ResponseEntity<List<Notice>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<Chat>>(list, HttpStatus.OK);
     }
     @DeleteMapping
-    public ResponseEntity<?> delete(@RequestParam int noticeId) throws Exception {
-        int cnt = noticeService.deleteNotice(noticeId);
+    public ResponseEntity<?> delete(@RequestParam int chatId) throws Exception {
+        int cnt = chatService.deleteChat(chatId);
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("공지 삭제 실패");
         return ResponseEntity.ok(cnt);
     }
 
     @PostMapping
-    public ResponseEntity<?> register(@RequestBody Notice notice) throws Exception {
-        int cnt = noticeService.createNotice(notice);
+    public ResponseEntity<?> register(@RequestBody Chat chat) throws Exception {
+        int cnt = chatService.createChat(chat);
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("공지 업데이트 실패");
         return ResponseEntity.ok(cnt);
     }
-
 }

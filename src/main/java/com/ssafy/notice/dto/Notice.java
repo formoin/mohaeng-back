@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Notice {
-    private int id;
+    private int noticeId;
     private int groupId;
     private String content;
 }

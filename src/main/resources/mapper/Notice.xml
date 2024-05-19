@@ -5,14 +5,15 @@
 <mapper namespace="com.ssafy.notice.model.mapper.NoticeMapper">
 
 
-    <select id="getNoticeList" resultType="attraction">
-        select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
-        from attraction_info
+    <select id="getNoticeList" resultType="notice">
+        select group_id, notice_id, content
+        from notice
+        where group_id=#{groupId}
     </select>
 
     <delete id="deleteNotice" parameterType="int">
         delete from notice
-        where id=#{id}
+        where notice_id=#{noticeId}
     </delete>
 
     <insert id="createNotice" parameterType="notice">

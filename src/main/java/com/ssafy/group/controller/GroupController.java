@@ -4,15 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.group.dto.Group;
 import com.ssafy.group.dto.RequestMakegroup;
@@ -29,58 +21,68 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin("*")
 public class GroupController {
 	private final GroupSerivce groupSerivce;
-	
-	@GetMapping("/{userId}")
-	public ResponseEntity<?> myGroup(@PathVariable int userId) throws Exception {
-        List<Group> list = groupSerivce.getMyGroup(userId);
 
-        if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
-        return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
-    }
-	
-	
 	@GetMapping("/{groupId}")
-	public ResponseEntity<?> getMembers(@PathVariable int groupId) throws Exception {
-        List<User> list = groupSerivce.getGroupMember(groupId);
+	public ResponseEntity<?> getGroupInfo(@PathVariable int groupId) throws Exception {
+		System.out.println(groupId);
+		Group group = groupSerivce.getGroupInfo(groupId);
+		if(group == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 정보 가져오기 실패");
+		return ResponseEntity.ok(group);
+	}
+	@PostMapping
+	public ResponseEntity<?> makeGroup(@RequestBody RequestMakegroup groupUser) throws Exception {
+		int cnt = groupSerivce.makeGroup(groupUser);
 
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 만들기 실패");
+		return ResponseEntity.ok(cnt);
+	}
+
+	@PutMapping
+	public ResponseEntity<?> updateGroupInfo(@RequestBody Group updateInfo) throws Exception {
+		int cnt = groupSerivce.updateGroupInfo(updateInfo);
+
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 정보 수정 실패");
+		return ResponseEntity.ok(cnt);
+	}
+	@DeleteMapping
+	public ResponseEntity<?> deleteGroup(@RequestParam("groupId") int groupId) throws Exception {
+
+		int cnt=groupSerivce.deleteGroup(groupId);
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 삭제 실패");
+		return ResponseEntity.ok(cnt);
+	}
+	
+	
+	@GetMapping("/users")
+	public ResponseEntity<?> getGroupMembers(@RequestParam("groupId") int groupId) throws Exception {
+        List<User> list = groupSerivce.getGroupUsers(groupId);
         if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 멤버 가져오기 실패");
         return new ResponseEntity<List<User>>(list, HttpStatus.OK);
     }
-	
-	
-	@PostMapping
-	public ResponseEntity<?> makeGroup(@RequestBody RequestMakegroup gu) throws Exception {
-		int cnt = groupSerivce.makeGroup(gu);
-		
-		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 만들기 실패");
-		return ResponseEntity.ok(cnt); 
+	@PutMapping("/users")
+	public ResponseEntity<?> addGroupMembers(@RequestBody RequestMakegroup requestMakegroup) throws Exception {
+		int cnt = groupSerivce.addGroupUsers(requestMakegroup);
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 추가하기 실패");
+		return ResponseEntity.ok(cnt);
 	}
-	
-	@PostMapping("/invite")
-	public ResponseEntity<?> addGroupUser(@RequestBody RequestMakegroup members) throws Exception {
-		int cnt = groupSerivce.addGroupUsers(members);
-		
+
+	@DeleteMapping("/users")
+	public ResponseEntity<?> deleteGroupMembers(@RequestParam("groupId") int groupId, @RequestParam("userId") int userId) throws Exception {
+		int cnt = groupSerivce.deleteGroupUsers(groupId, userId);
+
 		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 멤버 등록 실패");
-		return ResponseEntity.ok(cnt); 
+		return ResponseEntity.ok(cnt);
 	}
-	
-//	@DeleteMapping
-//	public ResponseEntity<?> deleteGroup(@RequestBody RequestMakegroup members) throws Exception {
-//		int cnt = groupSerivce.addGroupUsers(members);
-//		
-//		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 멤버 등록 실패");
-//		return ResponseEntity.ok(cnt); 
-//	}
-	
-	@DeleteMapping("/{groupId}")
-	public ResponseEntity<?> deleteGroup(@PathVariable int groupId) throws Exception {
-		
-		int cnt = groupSerivce.deleteGroup(groupId);
-        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 삭제 실패");
-        return ResponseEntity.ok(cnt);
-    }
-	
-	
+
+
+	@GetMapping("/users/list")
+	public ResponseEntity<?> myGroup(@RequestParam("userId") int userId) throws Exception {
+		List<Group> list = groupSerivce.getMyGroup(userId);
+
+		if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
+		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
+	}
+
 	
 	
 }
