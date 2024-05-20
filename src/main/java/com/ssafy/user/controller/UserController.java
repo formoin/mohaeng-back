@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class UserController {
 	private final UserSerivce userService;
 
@@ -74,7 +73,6 @@ public class UserController {
 
 	@DeleteMapping
 	public ResponseEntity<?> deleteUserInfo(@RequestParam("id") int userId) throws Exception{
-		System.out.println("!!!");
 		int cnt = userService.deleteUserInfo(userId);
 
 		if(cnt == 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유저 삭제 실패");

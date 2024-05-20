@@ -1,4 +1,4 @@
-package com.ssafy.attraction.dto;
+package com.ssafy.plan.dto;
 
 import java.math.BigDecimal;
 

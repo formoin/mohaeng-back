@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/notices")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class NoticeController {
     private final NoticeService noticeService;
 
@@ -32,7 +31,8 @@ public class NoticeController {
 
     @PostMapping
     public ResponseEntity<?> register(@RequestBody Notice notice) throws Exception {
-        int cnt = noticeService.createNotice(notice);
+        System.out.println(notice.getGroupId()+"!!!!");
+    	int cnt = noticeService.createNotice(notice);
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("공지 업데이트 실패");
         return ResponseEntity.ok(cnt);
     }

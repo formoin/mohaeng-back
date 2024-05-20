@@ -6,7 +6,7 @@
 
 
     <select id="getTodoList" resultType="todo" parameterType="int">
-        select todo_id, content, is_checked
+        select todo_id, content, checked
         from todo
         where group_id=#{groupId}
     </select>
@@ -23,7 +23,7 @@
     
     <update id="update" parameterType="todo">
     	update todo
-    	set is_checked=#{isChecked}
+    	set checked=#{checked}
     	where todo_id=#{todoId}
     </update>
 

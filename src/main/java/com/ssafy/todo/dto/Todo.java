@@ -6,6 +6,6 @@ import lombok.Data;
 public class Todo {
     private int todoId;
     private String content;
-    private boolean isChecked;
+    private boolean checked;
     private int groupId;
 }

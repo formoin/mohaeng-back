@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/memories")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class MemoryController {
     private final MemoryService memoryService;
 

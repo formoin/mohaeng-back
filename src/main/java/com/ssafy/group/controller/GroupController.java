@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.group.dto.Group;
-import com.ssafy.group.dto.RequestMakegroup;
+import com.ssafy.group.dto.MakegroupRequest;
 import com.ssafy.group.model.service.GroupSerivce;
 import com.ssafy.user.dto.Groupuser;
 import com.ssafy.user.dto.User;
@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/groups")
-@CrossOrigin("*")
 public class GroupController {
 	private final GroupSerivce groupSerivce;
 
@@ -30,7 +29,7 @@ public class GroupController {
 		return ResponseEntity.ok(group);
 	}
 	@PostMapping
-	public ResponseEntity<?> makeGroup(@RequestBody RequestMakegroup groupUser) throws Exception {
+	public ResponseEntity<?> makeGroup(@RequestBody MakegroupRequest groupUser) throws Exception {
 		int cnt = groupSerivce.makeGroup(groupUser);
 
 		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 만들기 실패");
@@ -60,7 +59,7 @@ public class GroupController {
         return new ResponseEntity<List<User>>(list, HttpStatus.OK);
     }
 	@PutMapping("/users")
-	public ResponseEntity<?> addGroupMembers(@RequestBody RequestMakegroup requestMakegroup) throws Exception {
+	public ResponseEntity<?> addGroupMembers(@RequestBody MakegroupRequest requestMakegroup) throws Exception {
 		int cnt = groupSerivce.addGroupUsers(requestMakegroup);
 		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 추가하기 실패");
 		return ResponseEntity.ok(cnt);
@@ -75,7 +74,7 @@ public class GroupController {
 	}
 
 
-	@GetMapping("/users/list")
+	@GetMapping("/list")
 	public ResponseEntity<?> myGroup(@RequestParam("userId") int userId) throws Exception {
 		List<Group> list = groupSerivce.getMyGroup(userId);
 

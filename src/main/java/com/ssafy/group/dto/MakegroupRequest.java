@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class RequestMakegroup {
+public class MakegroupRequest {
 	private Group groupInfo;
 	private List<Integer> userList;
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.group.dto.Group;
-import com.ssafy.group.dto.RequestMakegroup;
+import com.ssafy.group.dto.MakegroupRequest;
 import com.ssafy.group.model.mapper.GroupMapper;
 import com.ssafy.group.model.mapper.GroupUserMapper;
 import com.ssafy.user.dto.Groupuser;
@@ -27,7 +27,7 @@ public class GroupServiceImpl implements GroupSerivce {
 	}
 
 	@Override
-	public int makeGroup(RequestMakegroup requestInfo) {
+	public int makeGroup(MakegroupRequest requestInfo) {
 		Group groupInfo = requestInfo.getGroupInfo();
 		if(groupMapper.makeGroup(groupInfo) !=1) {
 			System.out.println("그룹 만들기 실패");
@@ -67,7 +67,7 @@ public class GroupServiceImpl implements GroupSerivce {
 		return groupUserMapper.getGroupUsers(groupId);
 	}
 	@Override
-	public int addGroupUsers(RequestMakegroup groupuser) {
+	public int addGroupUsers(MakegroupRequest groupuser) {
 		int groupId = groupuser.getGroupInfo().getGroupId();
 		List<Integer> userList = groupuser.getUserList();
 		List<Groupuser> groupuserList = new ArrayList<>();

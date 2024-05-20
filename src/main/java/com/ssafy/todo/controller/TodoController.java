@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @RequestMapping("/todos")
 public class TodoController {
     private final TodoService todoService;
@@ -40,7 +39,6 @@ public class TodoController {
     @PutMapping
     public ResponseEntity<?> checkTodo(@RequestBody Todo todo) throws Exception {
         int cnt = todoService.checkTodo(todo);
-        System.out.println(todo.isChecked()+"   !!!");
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("투두리스트 체크 실패");
         return ResponseEntity.ok(cnt);
     }
