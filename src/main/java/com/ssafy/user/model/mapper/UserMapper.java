@@ -13,6 +13,7 @@ public interface UserMapper {
 	User findById(String id) throws SQLException;
 
 	int update(User userInfo) throws SQLException;
+	int updatePwd(User updatePwd) throws SQLException;
 
 	int deleteById(int id) throws SQLException;
 	

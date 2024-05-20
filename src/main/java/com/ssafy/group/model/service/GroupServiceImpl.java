@@ -23,7 +23,12 @@ public class GroupServiceImpl implements GroupSerivce {
 
 	@Override
 	public Group getGroupInfo(int groupId) {
-		return groupMapper.getGroupInfo(groupId);
+		Group group =  groupMapper.getGroupInfo(groupId);
+		group.setTodayCnt(group.getTodayCnt()+1);
+		group.setTotalCnt(group.getTotalCnt()+1);
+		
+		groupMapper.updateGroup(group);
+		return group;
 	}
 
 	@Override

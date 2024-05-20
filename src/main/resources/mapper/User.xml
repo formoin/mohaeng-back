@@ -33,6 +33,11 @@
 		where user_id=#{userId}
 	</update>
 
+	<update id="updatePwd" parameterType="user">
+		update user
+		set user_password=#{userPwd}
+		where id=#{id}
+	</update>
 	
 	<select id="selectByKeyword" parameterType="String" resultMap="user">
 		select id, user_id, user_name

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.group.dto.Group;
@@ -21,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class GroupController {
 	private final GroupSerivce groupSerivce;
 
-	@GetMapping("/{groupId}")
-	public ResponseEntity<?> getGroupInfo(@PathVariable int groupId) throws Exception {
+	@GetMapping
+	public ResponseEntity<?> getGroupInfo(@RequestParam("groupId") int groupId) throws Exception {
 		System.out.println(groupId);
 		Group group = groupSerivce.getGroupInfo(groupId);
 		if(group == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 정보 가져오기 실패");
@@ -81,7 +82,7 @@ public class GroupController {
 		if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
 		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
 	}
-
+	
 	
 	
 }

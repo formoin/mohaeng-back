@@ -70,5 +70,12 @@ public class UserServiceImpl implements UserSerivce {
 		return userMapper.deleteById(userId);
 	}
 
+	@Override
+	public int updatePwd(User updatePwd) throws Exception {
+		String encodedPwd = passwordEncoder.encode(updatePwd.getUserPwd());
+		updatePwd.setUserPwd(encodedPwd);
+		return userMapper.updatePwd(updatePwd);
+	}
+
 
 }

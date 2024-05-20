@@ -52,6 +52,24 @@ public class UserController {
 
 		return ResponseEntity.ok(cnt);
 	}
+	
+	@PutMapping("/pwd")
+	public ResponseEntity<?> updatePwd(@RequestBody User updatePwd, @RequestHeader("Authorization") String tokenHeader) throws Exception{
+		
+		//1. 토큰을 사용해 유저정보 조회
+		User myInfo = userService.userInfo(tokenHeader.substring(7));	
+		
+		if(myInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 변경 실패");
+		
+		updatePwd.setId(myInfo.getId());
+		int cnt = userService.updatePwd(updatePwd);
+
+		 
+
+		return ResponseEntity.ok(cnt);
+	}
+	
+
 
 
 	@GetMapping("/userInfo")
