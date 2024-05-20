@@ -3,6 +3,7 @@ package com.ssafy.group.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.group.dto.Group;
@@ -101,9 +102,9 @@ public class GroupServiceImpl implements GroupSerivce {
 	}
 
 	@Override
+	@Scheduled(cron = "0 0 0 * * *")
 	public int setTodayVisitZero() {
-		List<Group> groupList = groupMapper.getGroups();
-		return 0;
+		return groupMapper.setTodayVisitZero();
 	}
 	
 }

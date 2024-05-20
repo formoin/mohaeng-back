@@ -16,5 +16,5 @@ public interface GroupMapper {
 	int updateGroup(Group groupId);
 	int deleteGroup(int groupId);
 	
-	List<Group> getGroups();
+	int setTodayVisitZero();
 }

@@ -16,6 +16,11 @@
 		on g.group_id = u.group_id
 		where u.user_id=#{user_id}
 	</select>
+
+	<update id="setTodayVisitZero">
+		update `group`
+		set today_cnt = 0
+	</update>
 	
 	<insert id="makeGroup" parameterType="group">
 		insert into `group` (group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt)
