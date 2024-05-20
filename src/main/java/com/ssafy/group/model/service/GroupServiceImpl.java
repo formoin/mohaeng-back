@@ -99,5 +99,11 @@ public class GroupServiceImpl implements GroupSerivce {
 	public List<Group> getMyGroup(int userId) {
 		return groupMapper.getMyGroup(userId);
 	}
+
+	@Override
+	public int setTodayVisitZero() {
+		List<Group> groupList = groupMapper.getGroups();
+		return 0;
+	}
 	
 }

@@ -18,5 +18,7 @@ public interface GroupSerivce {
 	int addGroupUsers(MakegroupRequest requestInfo);
 	List<Group> getMyGroup(int userId);
 	int deleteGroupUsers(int groupId, int userId);
+	
+	int setTodayVisitZero();
 
 }
