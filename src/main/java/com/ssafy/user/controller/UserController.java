@@ -62,13 +62,24 @@ public class UserController {
 		if(myInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 변경 실패");
 		
 		updatePwd.setId(myInfo.getId());
-		int cnt = userService.updatePwd(updatePwd);
-
-		 
+		int cnt = userService.updatePwd(updatePwd);	 
 
 		return ResponseEntity.ok(cnt);
 	}
 	
+	@PutMapping("/msg")
+	public ResponseEntity<?> updateMsg(@RequestBody User updateMsg, @RequestHeader("Authorization") String tokenHeader) throws Exception{
+		
+		//1. 토큰을 사용해 유저정보 조회
+		User myInfo = userService.userInfo(tokenHeader.substring(7));	
+		
+		if(myInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보 변경 실패");
+		
+		updateMsg.setId(myInfo.getId());
+		int cnt = userService.updateMsg(updateMsg);	 
+
+		return ResponseEntity.ok(cnt);
+	}
 
 
 

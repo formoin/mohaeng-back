@@ -77,5 +77,10 @@ public class UserServiceImpl implements UserSerivce {
 		return userMapper.updatePwd(updatePwd);
 	}
 
+	@Override
+	public int updateMsg(User updateMsg) throws Exception {
+		return userMapper.updateMsg(updateMsg);
+	}
+
 
 }

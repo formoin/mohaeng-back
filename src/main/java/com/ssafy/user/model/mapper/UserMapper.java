@@ -14,6 +14,7 @@ public interface UserMapper {
 
 	int update(User userInfo) throws SQLException;
 	int updatePwd(User updatePwd) throws SQLException;
+	int updateMsg(User updateMsg) throws SQLException;
 
 	int deleteById(int id) throws SQLException;
 	

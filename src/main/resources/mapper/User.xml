@@ -27,15 +27,22 @@
 		where user_id=#{userId}
 	</select>
 	
+	
 	<update id="update" parameterType="user">
 		update user
-		set user_name=#{userName}, user_phone=#{userPhone}, birthday=#{birthday}, message=#{message}, img=#{img}
+		set user_name=#{userName}, user_phone=#{userPhone}, birthday=#{birthday}, img=#{img}
 		where user_id=#{userId}
 	</update>
 
 	<update id="updatePwd" parameterType="user">
 		update user
 		set user_password=#{userPwd}
+		where id=#{id}
+	</update>
+	
+	<update id="updateMsg" parameterType="user">
+		update user
+		set message=#{message}
 		where id=#{id}
 	</update>
 	
