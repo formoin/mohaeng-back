@@ -8,6 +8,7 @@ import lombok.Data;
 public class Attraction {
 	private int contentId;
 	private int contentTypeId;
+	private String contentTypeName;
 	private String title;
 	private String addr1;
 	private String addr2;

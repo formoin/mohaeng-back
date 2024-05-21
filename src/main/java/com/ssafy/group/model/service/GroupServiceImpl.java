@@ -102,5 +102,21 @@ public class GroupServiceImpl implements GroupSerivce {
 	public int setTodayVisitZero() {
 		return groupMapper.setTodayVisitZero();
 	}
+
+	@Override
+	public int deleteMusic(int groupId) {
+		// TODO Auto-generated method stub
+		return groupMapper.deleteMusic(groupId);
+	}
+
+	@Override
+	public int updateMusic(Group group) {
+		// TODO Auto-generated method stub
+		return groupMapper.updateMusic(group);
+	}
+
+
+
+
 	
 }

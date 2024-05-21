@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ssafy.group.dto.Group;
 import com.ssafy.group.dto.MakegroupRequest;
 import com.ssafy.group.model.service.GroupSerivce;
+import com.ssafy.memory.dto.Memory;
 import com.ssafy.user.dto.Groupuser;
 import com.ssafy.user.dto.User;
 
@@ -77,6 +78,25 @@ public class GroupController {
 		if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
 		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
 	}
+	
+	//music
+
+    @DeleteMapping("/music")
+    public ResponseEntity<?> deleteMusic(@RequestParam int groupId) throws Exception {
+        int cnt = groupSerivce.deleteMusic(groupId);
+        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("음 악  삭제 실패");
+        return ResponseEntity.ok(cnt);
+    }
+
+
+
+    @PutMapping("/music")
+    public ResponseEntity<?> updateMusic(@RequestBody Group group) throws Exception {
+        int cnt = groupSerivce.updateMusic(group);
+        System.out.println("!!!!"+group.getGroupMusic());
+        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("음악 등록 실패");
+        return ResponseEntity.ok(cnt);
+    }
 	
 	
 	

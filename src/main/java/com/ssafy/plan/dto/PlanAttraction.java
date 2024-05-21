@@ -1,6 +1,8 @@
 package com.ssafy.plan.dto;
 
+import lombok.Data;
 
+@Data
 public class PlanAttraction {
 	private int planId;
 	private String date;

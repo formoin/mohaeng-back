@@ -5,10 +5,10 @@
 <mapper namespace="com.ssafy.plan.model.mapper.PlanMapper">
 	
 	<select id="getPlans" resultType="PlanAttraction" parameterType="int">
-        select p.plan_id, p.date, p.group_id, a.title, a.addr1, a.first_img, t.content_type_name 
+        select p.plan_id, p.date, p.group_id, a.title, a.addr1, a.first_image, t.content_type_name 
         from plan p
         inner join attraction_info a on a.content_id = p.content_id
-        inner join type t on p.content_type_id = t.content_type_id
+        inner join type t on a.content_type_id = t.content_type_id
         where group_id=#{groupId}
     </select>
 

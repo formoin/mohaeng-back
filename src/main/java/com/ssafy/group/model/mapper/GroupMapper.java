@@ -3,7 +3,8 @@ package com.ssafy.group.model.mapper;
 import java.util.List;
 
 import com.ssafy.group.dto.Group;
-import com.ssafy.user.dto.Groupuser;
+
+
 
 public interface GroupMapper {
 	
@@ -17,4 +18,13 @@ public interface GroupMapper {
 	int deleteGroup(int groupId);
 	
 	int setTodayVisitZero();
+	
+	
+	
+	//music
+	
+	int deleteMusic(int groupId) ;
+
+	int updateMusic(Group group) ;
+
 }

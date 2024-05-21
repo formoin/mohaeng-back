@@ -2,31 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.plan.model.mapper.PlanMapper">
+<mapper namespace="com.ssafy.plan.model.mapper.AttractionMapper">
 
 	
 	<select id="getAttrInfo" parameterType="int" resultType="attraction">
-		select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
-		from attraction_info
+		select a.content_id, a.content_type_id, t.content_type_name, a.title, a.addr1, a.addr2, a.tel, a.first_image, a.readcount, a.sido_code, a.gugun_code, a.latitude, a.longitude
+		from attraction_info a
+		inner join type t
+		on a.content_type_id = t.content_type_id
 		where content_id=#{contentId}
 	</select>
-	
-	<select id="getAttractions" resultType="Attraction" parameterType="search">
-        select content_id, content_type_id, title, addr1, addr2, tel, first_image, readcount, sido_code, gugun_code, latitude, longitude
-		from attraction_info
+
+	<select id="getAttractions" resultType="attraction" parameterType="search">
+        select a.content_id, a.content_type_id, t.content_type_name, a.title, a.addr1, a.addr2, a.tel, a.first_image, a.readcount, a.sido_code, a.gugun_code, a.latitude, a.longitude
+		from attraction_info a
+		inner join type t
+		on a.content_type_id = t.content_type_id
 		<where>
-			<if test="sidoCode != null and sidoCode != '' ">
-			sido_code=#{sidoCode}
+			<if test="sidoCode != null and sidoCode !=0">
+			a.sido_code=#{sidoCode}
 			</if>
+			
+			<if test="contentTypeId !=null and contentTypeId !=0">
 			and
-			<if test="contentTypeId !=null and contentTypeId != '' ">
-			content_type_id=#{contentTypeId}
+			a.content_type_id=#{contentTypeId}
 			</if>
-			and 
+			
 			<if test="keyword != null and keyword != '' ">
+			and 
 			keyword LIKE CONCAT('%',#{keyword},'%')
 			</if >
 		</where>
     </select>
+
+    
     
 </mapper>

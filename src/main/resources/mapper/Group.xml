@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.group.model.mapper.GroupMapper">
 
 	<select id="getGroupInfo" parameterType="int" resultType="group">
-		select group_id, group_name, group_title, group_img, start_date, end_date, total_cnt, today_cnt
+		select group_id, group_name, group_music,group_title, group_img, start_date, end_date, total_cnt, today_cnt
 		from `group`
 		where group_id=#{groupId}
 	</select>
@@ -42,5 +42,21 @@
 		delete from `group`
 		where group_id=#{groupId}
 	</delete>
+	
+	
+	<!-- music -->
+	<update id="updateMusic" parameterType="Group">
+		update `group`
+		set group_music=#{groupMusic}
+		where group_id=#{groupId}
+	</update>
+
+	<delete id="deleteMusic" parameterType="int">
+		update `group`
+		set group_music=''
+		where group_id=#{groupId}
+	</delete>
+	
+
 	
 </mapper>

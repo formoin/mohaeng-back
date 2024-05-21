@@ -7,6 +7,7 @@ public class Group {
 	private int groupId;
 	private String groupName;
 	private String groupTitle;
+	private String groupMusic;
 	private String groupImg;
 	private String startDate;
 	private String endDate;

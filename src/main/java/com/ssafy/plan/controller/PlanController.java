@@ -32,8 +32,8 @@ public class PlanController {
 	
 	private final PlanService planService;
 	
-	@GetMapping("/{groupId}")
-	public ResponseEntity<?> getPlans(@PathVariable int groupId) throws Exception {
+	@GetMapping
+	public ResponseEntity<?> getPlans(@RequestParam("groupId") int groupId) throws Exception {
 		System.out.println(groupId);
 		List<PlanAttraction> plans = planService.getPlans(groupId);
 		if(plans == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("계획 가져오기 실패");
