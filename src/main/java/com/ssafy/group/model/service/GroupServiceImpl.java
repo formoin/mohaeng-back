@@ -27,7 +27,7 @@ public class GroupServiceImpl implements GroupSerivce {
 		Group group =  groupMapper.getGroupInfo(groupId);
 		group.setTodayCnt(group.getTodayCnt()+1);
 		group.setTotalCnt(group.getTotalCnt()+1);
-		
+//		System.out.println("!!!!!!!!  "+ groupId);
 		groupMapper.updateGroup(group);
 		return group;
 	}
@@ -75,6 +75,9 @@ public class GroupServiceImpl implements GroupSerivce {
 	@Override
 	public int addGroupUsers(MakegroupRequest groupuser) {
 		int groupId = groupuser.getGroupInfo().getGroupId();
+		
+		groupUserMapper.deleteGroupUserList(groupId);
+		
 		List<Integer> userList = groupuser.getUserList();
 		List<Groupuser> groupuserList = new ArrayList<>();
 		for(Integer userId : userList) {
@@ -87,13 +90,6 @@ public class GroupServiceImpl implements GroupSerivce {
 		return groupUserMapper.insertGroupUserList(groupuserList);
 	}
 
-	@Override
-	public int deleteGroupUsers(int groupId, int userId) {
-		Groupuser groupuser = new Groupuser();
-		groupuser.setGroupId(groupId);
-		groupuser.setUserId(userId);
-		return groupUserMapper.deleteGroupUsers(groupuser);
-	}
 
 
 	@Override

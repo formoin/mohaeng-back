@@ -11,7 +11,10 @@
 		g.user_id = u.id
 		where g.group_id=#{groupId}
 	</select>
-
+	<delete id="deleteGroupUserList" parameterType="int">
+		delete from groupuser
+		where group_id = #{groupId}
+	</delete>
 	<insert id="insertGroupUserList" parameterType="list">
 		insert into groupuser
 		(user_id, group_id)
@@ -25,9 +28,5 @@
 
 	</insert>
 	
-	<insert id="deleteGroupUsers" parameterType="groupuser">
-		delete from groupuser
-		where user_id=#{userId} and group_id=#{groupId}
-	</insert>
 
 </mapper>

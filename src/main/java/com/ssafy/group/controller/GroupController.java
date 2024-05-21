@@ -59,20 +59,15 @@ public class GroupController {
         if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 멤버 가져오기 실패");
         return new ResponseEntity<List<User>>(list, HttpStatus.OK);
     }
+	
 	@PutMapping("/users")
 	public ResponseEntity<?> addGroupMembers(@RequestBody MakegroupRequest requestMakegroup) throws Exception {
 		int cnt = groupSerivce.addGroupUsers(requestMakegroup);
-		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 추가하기 실패");
+		System.out.println("groupId " + requestMakegroup.getGroupInfo().getGroupId());
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 수정하기 실패");
 		return ResponseEntity.ok(cnt);
 	}
 
-	@DeleteMapping("/users")
-	public ResponseEntity<?> deleteGroupMembers(@RequestParam("groupId") int groupId, @RequestParam("userId") int userId) throws Exception {
-		int cnt = groupSerivce.deleteGroupUsers(groupId, userId);
-
-		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 멤버 등록 실패");
-		return ResponseEntity.ok(cnt);
-	}
 
 
 	@GetMapping("/list")

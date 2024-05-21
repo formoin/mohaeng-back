@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MemoryServiceImpl implements MemoryService {
-    private MemoryMapper memoryMapper;
+    private final MemoryMapper memoryMapper;
     @Override
     public List<Memory> getDiary(int groupId) {
         return memoryMapper.getDiary(groupId);

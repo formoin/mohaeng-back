@@ -7,7 +7,7 @@ public class Chat {
 
     private int chatId;
     private String content;
-    private String writeTime;
+    private String chatDatetime;
     private int userId;
     private int groupId;
 

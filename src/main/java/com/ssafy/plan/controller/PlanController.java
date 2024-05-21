@@ -78,7 +78,7 @@ public class PlanController {
 		return ResponseEntity.ok(type);
 	}
 	
-	@GetMapping("/search")
+	@PostMapping("/search")
 	public ResponseEntity<?> search(@RequestBody Search searchDto) throws Exception {
 		
 		List<Attraction> attractions = planService.getAttractions(searchDto);

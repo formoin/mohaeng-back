@@ -38,17 +38,18 @@ create table groupuser (
 
 
 
-drop table if exists `group_chat`;
+drop table if exists `chat`;
 
 create table `chat` (
    chat_id int primary key auto_increment,
-    chat_content varchar(1000),
-    chat_datetime datetime,
+    content varchar(1000),
+    chat_datetime datetime default current_timestamp,
     group_id int,
     user_id int,
     constraint foreign key(group_id) references `group`(group_id) on delete cascade on update cascade,
     constraint foreign key(user_id) references `user`(id) on delete cascade on update cascade
 );
+alter table `chat` rename column chat_content to content;
 
 drop table if exists `notice`;
 
@@ -63,17 +64,19 @@ drop table if exists `todo`;
 create table `todo` (
    todo_id int primary key auto_increment,
     content varchar(300),
-    is_checked boolean default false,
+    checked boolean default false,
     group_id int,
     constraint foreign key(group_id) references `group`(group_id) on delete cascade on update cascade
 );
+
+
 
 drop table if exists `memory`;
 create table `memory` (
    memory_id int primary key auto_increment,
     img varchar(1000),
     content varchar(2000),
-    write_time datetime,
+    write_time datetime default current_timestamp,
     group_id int,
     user_id int,
     constraint foreign key(group_id) references `group`(group_id) on delete cascade on update cascade,

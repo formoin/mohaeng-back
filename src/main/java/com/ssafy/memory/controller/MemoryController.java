@@ -31,6 +31,7 @@ public class MemoryController {
 
     @PostMapping
     public ResponseEntity<?> uploadMemory(@RequestBody Memory memory) throws Exception {
+    	System.out.println("gtoupId " + memory.getGroupId());
         int cnt = memoryService.upload(memory);
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("다이어리 업로드 실패");
         return ResponseEntity.ok(cnt);

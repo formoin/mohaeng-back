@@ -6,7 +6,7 @@
 
 
     <select id="getChatting" resultType="chat">
-        select chat_id, content, write_time, group_id, user_id
+        select chat_id, content, chat_datetime, group_id, user_id
         from chat
         where group_id=#{groupId}
     </select>
