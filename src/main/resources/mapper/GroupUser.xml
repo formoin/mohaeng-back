@@ -6,7 +6,8 @@
 	<select id="getGroupUsers" parameterType="int" resultType="user">
 		select
 		u.id, u.user_id, u.user_name, u.img
-		from user u inner join groupuser g
+		from user u inner join
+		groupuser g
 		on
 		g.user_id = u.id
 		where g.group_id=#{groupId}
@@ -18,28 +19,32 @@
 	<insert id="insertGroupUserList" parameterType="list">
 		insert into groupuser
 		(user_id, group_id)
-		values 
-		<foreach collection="list" item="item" index="idx" separator=",">
+		values
+		<foreach collection="list" item="item" index="idx"
+			separator=",">
 			(
-				#{item.userId},
-				#{item.groupId}
+			#{item.userId},
+			#{item.groupId}
 			)
 		</foreach>
 	</insert>
-	
+
 
 	<update id="setCheckTrue" parameterType="int">
 		update groupuser
-		set notice_check=true
-		where userId = #{userId}
+		set
+		notice_check=true
+		where user_id = #{userId}
 	</update>
-	
+
 	<select id="getGroupInfo" parameterType="int" resultType="Group">
-		select g.group_id, g.group_name
-		from group g
-		inner join groupuser u
-		on g.group_id = u.group_id
-		where u.user_id = #{userId} and u.notice_check=false
+		select
+		g.group_id, g.group_name
+		from `group` g inner join groupuser u
+		on
+		g.group_id = u.group_id
+		where u.user_id = #{userId} and
+		u.notice_check=false
 	</select>
 
 </mapper>

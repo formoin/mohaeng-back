@@ -35,5 +35,6 @@ public interface GroupSerivce {
 	
 	//alarm
 	List<Group> updateAlarmCheck(int userId);
+	int deleteAlarmCheck(int userId);
 
 }

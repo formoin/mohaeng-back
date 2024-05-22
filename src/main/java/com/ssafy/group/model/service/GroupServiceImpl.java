@@ -120,9 +120,15 @@ public class GroupServiceImpl implements GroupSerivce {
 	public List<Group> updateAlarmCheck(int userId) {
 
 		List<Group> groupInfo = groupUserMapper.getGroupInfo(userId);
-		groupUserMapper.setCheckTrue(userId);
+		
 		
 		return groupInfo;
+	}
+
+	@Override
+	public int deleteAlarmCheck(int userId) {
+		
+		return groupUserMapper.setCheckTrue(userId);
 	}
 
 

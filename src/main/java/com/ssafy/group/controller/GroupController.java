@@ -120,4 +120,10 @@ public class GroupController {
 		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
     }
 	
+    @DeleteMapping("/alarm")
+    public ResponseEntity<?> deleteAlarmCheck(@RequestParam("userId") int userId) throws Exception {
+        int cnt = groupSerivce.deleteAlarmCheck(userId);
+        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ㅇ안읽은 그룹 삭 실패");
+		return ResponseEntity.ok(cnt);
+    }
 }
