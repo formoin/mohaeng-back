@@ -82,7 +82,7 @@ public class PlanController {
 	public ResponseEntity<?> search(@RequestBody Search searchDto) throws Exception {
 		
 		List<Attraction> attractions = planService.getAttractions(searchDto);
-		if(attractions == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("타입 리스트 가져오기 실패");
+		if(attractions == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("관광지 리스트 가져오기 실패");
 		return ResponseEntity.ok(attractions);
 	}
 }

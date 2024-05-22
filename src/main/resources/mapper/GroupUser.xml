@@ -11,9 +11,9 @@
 		g.user_id = u.id
 		where g.group_id=#{groupId}
 	</select>
-	<delete id="deleteGroupUserList" parameterType="int">
+	<delete id="deleteGroupUser" parameterType="int">
 		delete from groupuser
-		where group_id = #{groupId}
+		where group_id = #{groupId} and user_id = #{userId}
 	</delete>
 	<insert id="insertGroupUserList" parameterType="list">
 		insert into groupuser
@@ -25,8 +25,21 @@
 				#{item.groupId}
 			)
 		</foreach>
-
 	</insert>
 	
+
+	<update id="setCheckTrue" parameterType="int">
+		update groupuser
+		set notice_check=true
+		where userId = #{userId}
+	</update>
+	
+	<select id="getGroupInfo" parameterType="int" resultType="Group">
+		select g.group_id, g.group_name
+		from group g
+		inner join groupuser u
+		on g.group_id = u.group_id
+		where u.user_id = #{userId} and u.notice_check=false
+	</select>
 
 </mapper>

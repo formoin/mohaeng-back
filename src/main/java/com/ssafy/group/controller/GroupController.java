@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupController {
 	private final GroupSerivce groupSerivce;
 
+	// group-info 
 	@GetMapping
 	public ResponseEntity<?> getGroupInfo(@RequestParam("groupId") int groupId) throws Exception {
 		System.out.println(groupId);
@@ -53,7 +54,7 @@ public class GroupController {
 		return ResponseEntity.ok(cnt);
 	}
 	
-	
+	// 그룹에 속한 유저 리스트 가져오기
 	@GetMapping("/users")
 	public ResponseEntity<?> getGroupMembers(@RequestParam("groupId") int groupId) throws Exception {
         List<User> list = groupSerivce.getGroupUsers(groupId);
@@ -61,6 +62,7 @@ public class GroupController {
         return new ResponseEntity<List<User>>(list, HttpStatus.OK);
     }
 	
+	// 그룹에 해당 멤버 추가
 	@PutMapping("/users")
 	public ResponseEntity<?> addGroupMembers(@RequestBody MakegroupRequest requestMakegroup) throws Exception {
 		int cnt = groupSerivce.addGroupUsers(requestMakegroup);
@@ -68,36 +70,54 @@ public class GroupController {
 		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 수정하기 실패");
 		return ResponseEntity.ok(cnt);
 	}
+	
+	// 그룹에서 해당 멤버 삭제
+	@DeleteMapping("/users")
+	public ResponseEntity<?> deleteGroupMember(@RequestParam("userId") int userId, @RequestParam("groupId") int groupId) throws Exception {
+		Groupuser groupuser = new Groupuser();
+		
+		groupuser.setGroupId(groupId);
+		groupuser.setUserId(userId);
+		
+		int cnt = groupSerivce.deleteGroupUser(groupuser);
+		System.out.println("groupId " + groupuser.getGroupId());
+		if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹에 멤버 삭제하기 실패");
+		return ResponseEntity.ok(cnt);
+	}
 
 
-
+	// 유저가 해당하는 그룹 리스트 가져오기
 	@GetMapping("/list")
 	public ResponseEntity<?> myGroup(@RequestParam("userId") int userId) throws Exception {
-		List<Group> list = groupSerivce.getMyGroup(userId);
+		List<Group> list = groupSerivce.getMyGroups(userId);
 
 		if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
 		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
 	}
 	
-	//music
-
+	
+	//	music
     @DeleteMapping("/music")
     public ResponseEntity<?> deleteMusic(@RequestParam int groupId) throws Exception {
         int cnt = groupSerivce.deleteMusic(groupId);
-        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("음 악  삭제 실패");
+        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("음악 삭제 실패");
         return ResponseEntity.ok(cnt);
     }
-
-
 
     @PutMapping("/music")
     public ResponseEntity<?> updateMusic(@RequestBody Group group) throws Exception {
         int cnt = groupSerivce.updateMusic(group);
-        System.out.println("!!!!"+group.getGroupMusic());
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("음악 등록 실패");
         return ResponseEntity.ok(cnt);
     }
 	
-	
+    
+    // alarm check
+    @GetMapping("/alarm")
+    public ResponseEntity<?> updateAlarmCheck(@RequestParam("userId") int userId) throws Exception {
+        List<Group> list = groupSerivce.updateAlarmCheck(userId);
+        if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("그룹 가져오기 실패");
+		return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
+    }
 	
 }

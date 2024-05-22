@@ -27,7 +27,6 @@ public class GroupServiceImpl implements GroupSerivce {
 		Group group =  groupMapper.getGroupInfo(groupId);
 		group.setTodayCnt(group.getTodayCnt()+1);
 		group.setTotalCnt(group.getTotalCnt()+1);
-//		System.out.println("!!!!!!!!  "+ groupId);
 		groupMapper.updateGroup(group);
 		return group;
 	}
@@ -76,7 +75,6 @@ public class GroupServiceImpl implements GroupSerivce {
 	public int addGroupUsers(MakegroupRequest groupuser) {
 		int groupId = groupuser.getGroupInfo().getGroupId();
 		
-		groupUserMapper.deleteGroupUserList(groupId);
 		
 		List<Integer> userList = groupuser.getUserList();
 		List<Groupuser> groupuserList = new ArrayList<>();
@@ -91,9 +89,14 @@ public class GroupServiceImpl implements GroupSerivce {
 	}
 
 
+	@Override
+	public int deleteGroupUser(Groupuser groupuser) {
+		return groupUserMapper.deleteGroupUser(groupuser);
+	}
+	
 
 	@Override
-	public List<Group> getMyGroup(int userId) {
+	public List<Group> getMyGroups(int userId) {
 		return groupMapper.getMyGroup(userId);
 	}
 
@@ -105,15 +108,23 @@ public class GroupServiceImpl implements GroupSerivce {
 
 	@Override
 	public int deleteMusic(int groupId) {
-		// TODO Auto-generated method stub
 		return groupMapper.deleteMusic(groupId);
 	}
 
 	@Override
 	public int updateMusic(Group group) {
-		// TODO Auto-generated method stub
 		return groupMapper.updateMusic(group);
 	}
+
+	@Override
+	public List<Group> updateAlarmCheck(int userId) {
+
+		List<Group> groupInfo = groupUserMapper.getGroupInfo(userId);
+		groupUserMapper.setCheckTrue(userId);
+		
+		return groupInfo;
+	}
+
 
 
 

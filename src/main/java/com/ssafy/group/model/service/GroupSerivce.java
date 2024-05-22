@@ -10,15 +10,19 @@ import com.ssafy.user.dto.Groupuser;
 import com.ssafy.user.dto.User;
 
 public interface GroupSerivce {
+	//group
 	int makeGroup(MakegroupRequest requestInfo);
 	Group getGroupInfo(int groupId);
-
 	int updateGroupInfo(Group group);
-	
 	int deleteGroup(int groupId);
+	
+	//group-user
 	List<User> getGroupUsers(int groupId);
 	int addGroupUsers(MakegroupRequest requestInfo);
-	List<Group> getMyGroup(int userId);
+	int deleteGroupUser(Groupuser groupuser);
+	
+	
+	List<Group> getMyGroups(int userId);
 	
 	
 	int setTodayVisitZero();
@@ -26,8 +30,10 @@ public interface GroupSerivce {
 	
 	
 	//music
-	
 	int deleteMusic(int groupId);
 	int updateMusic(Group group);
+	
+	//alarm
+	List<Group> updateAlarmCheck(int userId);
 
 }
