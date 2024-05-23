@@ -18,5 +18,4 @@ public interface UserMapper {
 
 	int deleteById(int id) throws SQLException;
 	
-	
 }

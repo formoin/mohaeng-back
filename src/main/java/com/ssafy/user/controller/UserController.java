@@ -108,6 +108,14 @@ public class UserController {
 
 		return ResponseEntity.ok(cnt);
 	}
+	
+	@GetMapping("/checkid")
+	public ResponseEntity<?> checkIdDuplication(@RequestParam("inputId") String inputId) throws Exception{
+
+		
+		if(!userService.checkIdDuplication(inputId)) return ResponseEntity.status(400).body("중복된 아이디 입니다.");
+		return ResponseEntity.ok().body(null);
+	}
 
 
 }

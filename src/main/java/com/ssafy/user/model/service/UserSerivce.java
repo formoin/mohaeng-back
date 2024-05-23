@@ -14,4 +14,5 @@ public interface UserSerivce {
 	User userInfo(String token) throws Exception;
 
 	int deleteUserInfo(int userId) throws Exception;
+	Boolean checkIdDuplication(String inputId) throws Exception;
 }

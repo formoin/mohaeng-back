@@ -16,7 +16,7 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping
-    public ResponseEntity<?> noticeList(@RequestParam int groupId) throws Exception {
+    public ResponseEntity<?> chatList(@RequestParam int groupId) throws Exception {
         List<Chat> list = chatService.getChatting(groupId);
 
         if(list==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("공지 가져오기 실패");

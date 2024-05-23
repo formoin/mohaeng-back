@@ -82,5 +82,11 @@ public class UserServiceImpl implements UserSerivce {
 		return userMapper.updateMsg(updateMsg);
 	}
 
+	@Override
+	public Boolean checkIdDuplication(String inputId) throws Exception {
+		if(userMapper.findById(inputId) == null) return true; 
+		return false;
+	}
+
 
 }
